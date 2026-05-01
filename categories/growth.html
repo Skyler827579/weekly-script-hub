@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>内容分发 / 营销增长｜出海有数</title>
+  <style>
+    :root{
+      --bg:#f6f0e6;--card:#fffdf8;--text:#1f1f1d;--muted:#6f685f;--line:rgba(31,31,29,.12);
+      --accent:#b85c38;--accent-soft:rgba(184,92,56,.1);--green:#2f5d50;--blue:#3560c9;
+      --shadow:0 18px 50px rgba(34,24,13,.08);--radius:24px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--text);
+      background:radial-gradient(circle at top left, rgba(184,92,56,.12), transparent 28%),
+      radial-gradient(circle at top right, rgba(47,93,80,.12), transparent 24%), var(--bg);
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1220px,calc(100% - 32px));margin:24px auto 48px}
+    .hero,.panel,.post-card,.detail-card,.logic-card,.data-box{
+      background:rgba(255,253,248,.92);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)
+    }
+    .hero{padding:28px;margin-bottom:18px}
+    .eyebrow{display:inline-flex;padding:7px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.08em;margin-bottom:14px}
+    h1{margin:0 0 10px;font-size:clamp(28px,4vw,50px);line-height:1.08}
+    .hero p{margin:0;color:var(--muted);line-height:1.8;max-width:860px;font-size:15px}
+    .nav{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+    .nav a{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line);font-size:14px}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:18px}
+    .stat{background:rgba(255,255,255,.66);border:1px solid var(--line);border-radius:18px;padding:16px}
+    .stat .label{font-size:13px;color:var(--muted);margin-bottom:10px}
+    .stat .value{font-size:26px;font-weight:800}
+    .grid{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px}
+    .panel{padding:22px}
+    .panel h2,.section-title{margin:0 0 12px;font-size:22px}
+    .panel p,.panel li{color:var(--muted);line-height:1.75;font-size:14px}
+    .panel ul{margin:0;padding-left:18px}
+    .category-grid,.post-grid,.stack{display:grid;gap:16px}
+    .category-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .post-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .category-card{display:block;padding:18px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.72)}
+    .category-card h3{margin:0 0 8px;font-size:20px}
+    .category-card p{margin:0;color:var(--muted);line-height:1.75}
+    .post-card,.detail-card{padding:22px}
+    .post-card h3{margin:12px 0 10px;font-size:28px;line-height:1.25}
+    .post-card .summary{margin:0;color:var(--muted);line-height:1.8}
+    .meta,.tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{display:inline-flex;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.72);font-size:12px}
+    .lead{color:var(--muted);line-height:1.85}
+    .section{border-top:1px solid var(--line);padding-top:16px;margin-top:16px}
+    .section h2{margin:0 0 12px;font-size:20px}
+    .section p{line-height:1.95;margin:0 0 14px}
+    .section ul{margin:0;padding-left:18px}
+    .section li{line-height:1.9;margin-bottom:6px}
+    .logic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .logic-card,.data-box{padding:14px}
+    .logic-card .k,.data-box .k{font-size:12px;color:var(--muted);margin-bottom:8px}
+    .logic-card .v{font-size:15px;line-height:1.75}
+    .data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+    .data-box .v{font-size:22px;font-weight:800}
+    .quote-box{padding:16px 18px;border-radius:18px;background:rgba(53,96,201,.08);border:1px solid rgba(53,96,201,.14);line-height:1.9}
+    .warn-box{padding:16px 18px;border-radius:18px;background:rgba(184,92,56,.08);border:1px solid rgba(184,92,56,.14);line-height:1.9}
+    .footer-note{margin-top:20px;color:var(--muted);font-size:13px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}.post-card h3{font-size:24px}}
+    </style>
+</head>
+<body>
+  <div class="wrap">
+    
+    <div class="nav">
+      <a href="../index.html">首页</a>
+      <a href="../archive.html">时间归档</a>
+      <a href="../categories/travel.html">旅行相关</a>
+      <a href="../categories/products.html">物品 / 硬件</a>
+      <a href="../categories/websites.html">网站 / 独立站</a>
+      <a href="../categories/solo.html">一人公司 / 数字产品</a>
+      <a href="../categories/growth.html">内容分发 / 营销增长</a>
+      <a href="../categories/tools.html">工具 / SaaS</a>
+    </div>
+    
+    
+    <section class="hero">
+      <div class="eyebrow">CATEGORY</div>
+      <h1>内容分发 / 营销增长</h1>
+      <p>内容矩阵、冷启动、社媒增长、分发路径与获客机制。</p>
+      <div class="stats">
+        <div class="stat"><div class="label">当前收录</div><div class="value">0 篇</div></div>
+        <div class="stat"><div class="label">最近更新时间</div><div class="value">2026-05-01 12:51</div></div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="section-title">该类目下的内容</div>
+      <div class="post-grid"><p>暂时还没有内容。</p></div>
+    </section>
+    
+  </div>
+</body>
+</html>
