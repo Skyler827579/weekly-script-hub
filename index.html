@@ -3,140 +3,787 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ChainPulse｜案例口播知识库（测试）</title>
+  <title>ChainPulse｜案例口播知识库</title>
   <style>
-    :root{
-      --bg:#f6f0e6;--card:#fffdf8;--text:#1f1f1d;--muted:#6f685f;--line:rgba(31,31,29,.12);
-      --accent:#b85c38;--accent-soft:rgba(184,92,56,.1);--green:#2f5d50;--blue:#3560c9;
-      --shadow:0 18px 50px rgba(34,24,13,.08);--radius:24px;
+    :root {
+      --bg:#f7f8fc;
+      --paper:rgba(255,255,255,.78);
+      --paper-strong:rgba(255,255,255,.94);
+      --line:rgba(17,24,39,.08);
+      --line-strong:rgba(17,24,39,.14);
+      --text:#131827;
+      --muted:#697386;
+      --muted-2:#485065;
+      --purple:#b51fd9;
+      --indigo:#6947ff;
+      --teal:#00c7be;
+      --green:#6be36b;
+      --grad:linear-gradient(135deg,#b51fd9 0%,#6947ff 34%,#00c7be 70%,#6be36b 100%);
+      --shadow:0 18px 50px rgba(26,31,53,.08);
+      --shadow-hover:0 28px 70px rgba(26,31,53,.14);
+      --radius-xl:34px;
+      --radius-lg:28px;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--text);
-      background:radial-gradient(circle at top left, rgba(184,92,56,.12), transparent 28%),
-      radial-gradient(circle at top right, rgba(47,93,80,.12), transparent 24%), var(--bg);
+
+    * { box-sizing:border-box; }
+    html,body { margin:0; padding:0; }
+    body {
+      min-height:100vh;
+      color:var(--text);
+      font-family:"Avenir Next","SF Pro Rounded","SF Pro Display","PingFang SC","Helvetica Neue",sans-serif;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(181,31,217,.10), transparent 24%),
+        radial-gradient(circle at 84% 10%, rgba(105,71,255,.10), transparent 24%),
+        radial-gradient(circle at 74% 78%, rgba(0,199,190,.09), transparent 18%),
+        linear-gradient(180deg,#fcfdff 0%,#f5f7fc 100%);
+      letter-spacing:-.01em;
     }
-    a{color:inherit;text-decoration:none}
-    .wrap{width:min(1220px,calc(100% - 32px));margin:24px auto 48px}
-    .hero,.panel,.post-card,.detail-card,.logic-card,.data-box{
-      background:rgba(255,253,248,.92);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent 0,
+          transparent 72px,
+          rgba(17,24,39,.02) 72px,
+          rgba(17,24,39,.02) 73px
+        );
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.22), transparent 92%);
+      opacity:.55;
     }
-    .hero{padding:28px;margin-bottom:18px}
-    .eyebrow{display:inline-flex;padding:7px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.08em;margin-bottom:14px}
-    h1{margin:0 0 10px;font-size:clamp(28px,4vw,50px);line-height:1.08}
-    .hero p{margin:0;color:var(--muted);line-height:1.8;max-width:860px;font-size:15px}
-    .nav{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
-    .nav a{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line);font-size:14px}
-    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:18px}
-    .stat{background:rgba(255,255,255,.66);border:1px solid var(--line);border-radius:18px;padding:16px}
-    .stat .label{font-size:13px;color:var(--muted);margin-bottom:10px}
-    .stat .value{font-size:26px;font-weight:800}
-    .grid{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px}
-    .panel{padding:22px}
-    .panel h2,.section-title{margin:0 0 12px;font-size:22px}
-    .panel p,.panel li{color:var(--muted);line-height:1.75;font-size:14px}
-    .panel ul{margin:0;padding-left:18px}
-    .category-grid,.post-grid,.stack{display:grid;gap:16px}
-    .category-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-    .post-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-    .category-card{display:block;padding:18px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.72)}
-    .category-card h3{margin:0 0 8px;font-size:20px}
-    .category-card p{margin:0;color:var(--muted);line-height:1.75}
-    .post-card,.detail-card{padding:22px}
-    .post-card h3{margin:12px 0 10px;font-size:28px;line-height:1.25}
-    .post-card .summary{margin:0;color:var(--muted);line-height:1.8}
-    .meta,.tags{display:flex;flex-wrap:wrap;gap:8px}
-    .tag{display:inline-flex;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.72);font-size:12px}
-    .lead{color:var(--muted);line-height:1.85}
-    .section{border-top:1px solid var(--line);padding-top:16px;margin-top:16px}
-    .section h2{margin:0 0 12px;font-size:20px}
-    .section p{line-height:1.95;margin:0 0 14px}
-    .section ul{margin:0;padding-left:18px}
-    .section li{line-height:1.9;margin-bottom:6px}
-    .logic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .logic-card,.data-box{padding:14px}
-    .logic-card .k,.data-box .k{font-size:12px;color:var(--muted);margin-bottom:8px}
-    .logic-card .v{font-size:15px;line-height:1.75}
-    .data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
-    .data-box .v{font-size:22px;font-weight:800}
-    .quote-box{padding:16px 18px;border-radius:18px;background:rgba(53,96,201,.08);border:1px solid rgba(53,96,201,.14);line-height:1.9}
-    .warn-box{padding:16px 18px;border-radius:18px;background:rgba(184,92,56,.08);border:1px solid rgba(184,92,56,.14);line-height:1.9}
-    .footer-note{margin-top:20px;color:var(--muted);font-size:13px}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}.post-card h3{font-size:24px}}
-    </style>
+
+    a { color:inherit; text-decoration:none; }
+
+    .wrap {
+      width:min(1280px,calc(100% - 36px));
+      margin:24px auto 56px;
+      position:relative;
+      z-index:1;
+    }
+
+    .top-nav {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:20px;
+    }
+
+    .top-nav a {
+      padding:12px 16px;
+      border-radius:999px;
+      color:var(--muted-2);
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(17,24,39,.08);
+      box-shadow:0 10px 24px rgba(17,24,39,.05);
+      backdrop-filter:blur(12px);
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+    }
+
+    .top-nav a:hover {
+      transform:translateY(-2px);
+      color:var(--text);
+      background:rgba(255,255,255,.96);
+      border-color:rgba(105,71,255,.20);
+      box-shadow:0 16px 34px rgba(105,71,255,.10);
+    }
+
+    .hero, .panel, .side-panel, .signal-card, .category-card, .post-card {
+      background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.76));
+      border:1px solid rgba(17,24,39,.08);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(18px);
+    }
+
+    .hero {
+      position:relative;
+      overflow:hidden;
+      padding:38px;
+      border-radius:var(--radius-xl);
+      margin-bottom:22px;
+    }
+
+    .hero::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 86% 18%, rgba(105,71,255,.16), transparent 18%),
+        radial-gradient(circle at 72% 76%, rgba(0,199,190,.12), transparent 20%);
+      pointer-events:none;
+    }
+
+    .hero::after {
+      content:"";
+      position:absolute;
+      right:-100px;
+      top:-100px;
+      width:280px;
+      height:280px;
+      border-radius:50%;
+      background:var(--grad);
+      opacity:.10;
+      filter:blur(42px);
+    }
+
+    .hero-grid {
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) 320px;
+      gap:20px;
+      align-items:stretch;
+    }
+
+    .hero-badge {
+      display:inline-flex;
+      align-items:center;
+      padding:9px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(17,24,39,.08);
+      color:var(--muted-2);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      margin-bottom:14px;
+    }
+
+    .brand-lockup {
+      display:flex;
+      align-items:flex-start;
+      gap:18px;
+    }
+
+    .logo-frame {
+      flex:0 0 96px;
+      width:96px;
+      height:96px;
+      border-radius:30px;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.88);
+      border:1px solid rgba(17,24,39,.08);
+      box-shadow:0 16px 36px rgba(105,71,255,.08);
+    }
+
+    .logo-img {
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      border-radius:inherit;
+      padding:12px;
+      filter:drop-shadow(0 10px 24px rgba(105,71,255,.16));
+    }
+
+    h1 {
+      margin:0;
+      font-size:clamp(36px,6vw,76px);
+      line-height:.94;
+      font-weight:760;
+      letter-spacing:-.06em;
+    }
+
+    .brand-word {
+      display:block;
+      background:var(--grad);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .hero-desc {
+      margin:16px 0 0;
+      max-width:760px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.92;
+    }
+
+    .hero-chip-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+    }
+
+    .hero-chip {
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(17,24,39,.08);
+      color:var(--muted-2);
+      font-size:13px;
+      transition:transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+
+    .hero-chip:hover {
+      transform:translateY(-2px);
+      border-color:rgba(105,71,255,.20);
+      background:rgba(255,255,255,.96);
+      box-shadow:0 12px 24px rgba(105,71,255,.10);
+    }
+
+    .hero-side {
+      display:grid;
+      gap:12px;
+      align-content:start;
+    }
+
+    .signal-card {
+      position:relative;
+      overflow:hidden;
+      border-radius:24px;
+      padding:18px 18px 16px;
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      animation:floatCard 9s ease-in-out infinite;
+    }
+
+    .signal-card:nth-child(2) { animation-delay:1.2s; }
+    .signal-card:nth-child(3) { animation-delay:2.4s; }
+
+    .signal-card::before {
+      content:"";
+      position:absolute;
+      inset:0 auto auto 0;
+      width:100%;
+      height:3px;
+      background:var(--grad);
+      opacity:.9;
+    }
+
+    .signal-card:hover {
+      transform:translateY(-8px);
+      border-color:rgba(105,71,255,.20);
+      box-shadow:var(--shadow-hover);
+    }
+
+    .signal-card span {
+      display:block;
+      color:var(--muted-2);
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+
+    .signal-card strong {
+      display:block;
+      font-size:20px;
+      line-height:1.1;
+      margin-bottom:8px;
+      font-weight:720;
+    }
+
+    .signal-card p {
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:13px;
+    }
+
+    .stats-grid {
+      position:relative;
+      z-index:1;
+      margin-top:22px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:14px;
+    }
+
+    .stat-card {
+      padding:18px 18px 16px;
+      border-radius:22px;
+      background:rgba(255,255,255,.74);
+      border:1px solid rgba(17,24,39,.08);
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .stat-card:hover {
+      transform:translateY(-4px);
+      border-color:rgba(105,71,255,.18);
+      box-shadow:0 18px 32px rgba(105,71,255,.10);
+    }
+
+    .stat-label {
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+
+    .stat-value {
+      color:var(--text);
+      font-size:24px;
+      font-weight:740;
+      letter-spacing:-.04em;
+    }
+
+    .main-grid {
+      display:grid;
+      grid-template-columns:320px minmax(0,1fr);
+      gap:20px;
+    }
+
+    .stack, .category-grid, .post-grid {
+      display:grid;
+      gap:16px;
+    }
+
+    .panel, .side-panel {
+      padding:24px;
+      border-radius:var(--radius-lg);
+    }
+
+    .panel-title, .side-panel h2 {
+      margin:0 0 14px;
+      font-size:34px;
+      letter-spacing:-.05em;
+      font-weight:750;
+    }
+
+    .side-panel p, .side-panel li {
+      color:var(--muted);
+      line-height:1.86;
+      font-size:14px;
+    }
+
+    .side-panel ul {
+      margin:0;
+      padding-left:18px;
+    }
+
+    .side-note {
+      margin-top:18px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.75;
+    }
+
+    .category-grid {
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    }
+
+    .category-card {
+      position:relative;
+      overflow:hidden;
+      padding:22px;
+      border-radius:26px;
+      transition:transform .24s ease, box-shadow .24s ease, border-color .24s ease, background .24s ease;
+    }
+
+    .category-card:hover {
+      transform:translateY(-8px) scale(1.01);
+      border-color:rgba(105,71,255,.18);
+      box-shadow:var(--shadow-hover);
+      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(250,251,255,.90));
+    }
+
+    .category-topline {
+      position:absolute;
+      left:0;
+      top:0;
+      width:100%;
+      height:3px;
+      background:var(--grad);
+    }
+
+    .category-glow {
+      position:absolute;
+      right:-40px;
+      top:-40px;
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(105,71,255,.18), transparent 68%);
+      opacity:0;
+      transition:opacity .24s ease;
+      pointer-events:none;
+    }
+
+    .category-card:hover .category-glow {
+      opacity:1;
+    }
+
+    .card-label {
+      color:var(--muted-2);
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+
+    .category-card h3 {
+      margin:0 0 10px;
+      font-size:23px;
+      line-height:1.08;
+      letter-spacing:-.04em;
+      font-weight:740;
+      color:var(--text);
+    }
+
+    .category-card p {
+      margin:0;
+      color:var(--muted);
+      line-height:1.82;
+    }
+
+    .category-count {
+      margin-top:18px;
+      color:var(--muted-2);
+      font-size:14px;
+      font-weight:650;
+    }
+
+    .post-grid {
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    }
+
+    .post-card {
+      position:relative;
+      overflow:hidden;
+      padding:24px;
+      border-radius:26px;
+      transition:transform .24s ease, box-shadow .24s ease, border-color .24s ease, background .24s ease;
+    }
+
+    .post-card::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:26px;
+      padding:1px;
+      background:linear-gradient(135deg,rgba(181,31,217,.16),rgba(105,71,255,.10),rgba(0,199,190,.14));
+      -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+      -webkit-mask-composite:xor;
+      mask-composite:exclude;
+      pointer-events:none;
+    }
+
+    .post-card:hover {
+      transform:translateY(-8px) scale(1.01);
+      border-color:rgba(0,199,190,.18);
+      box-shadow:var(--shadow-hover);
+      background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(249,251,255,.90));
+    }
+
+    .post-glow {
+      position:absolute;
+      right:-30px;
+      bottom:-50px;
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(0,199,190,.18), transparent 70%);
+      opacity:0;
+      transition:opacity .24s ease;
+      pointer-events:none;
+    }
+
+    .post-card:hover .post-glow {
+      opacity:1;
+    }
+
+    .meta-row, .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .pill, .chip {
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,.08);
+      background:rgba(255,255,255,.80);
+      color:var(--muted-2);
+      font-size:12px;
+      transition:transform .16s ease, border-color .16s ease, background .16s ease, color .16s ease, box-shadow .16s ease;
+    }
+
+    .chip:hover {
+      transform:translateY(-1px);
+      border-color:rgba(105,71,255,.18);
+      background:rgba(255,255,255,.98);
+      color:var(--text);
+      box-shadow:0 10px 20px rgba(105,71,255,.08);
+    }
+
+    .post-card h3 {
+      margin:14px 0 10px;
+      font-size:30px;
+      line-height:1.14;
+      letter-spacing:-.045em;
+      font-weight:760;
+    }
+
+    .post-card h3 a {
+      color:var(--text);
+      transition:opacity .18s ease;
+    }
+
+    .post-card:hover h3 a {
+      opacity:.92;
+    }
+
+    .summary {
+      margin:0;
+      color:var(--muted);
+      line-height:1.86;
+      font-size:15px;
+    }
+
+    @keyframes floatCard {
+      0%,100% { transform:translateY(0); }
+      50% { transform:translateY(-4px); }
+    }
+
+    @media (max-width: 1040px) {
+      .hero-grid, .main-grid {
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrap {
+        width:min(100% - 20px, 1280px);
+        margin:14px auto 36px;
+      }
+      .hero, .panel, .side-panel {
+        padding:20px;
+      }
+      h1 {
+        font-size:clamp(32px,12vw,54px);
+      }
+      .brand-lockup {
+        flex-direction:column;
+      }
+      .logo-frame {
+        width:78px;
+        height:78px;
+      }
+      .top-nav a {
+        padding:10px 14px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="wrap">
     
-    <div class="nav">
+    <nav class="top-nav">
       <a href="index.html">首页</a>
       <a href="archive.html">时间归档</a>
       <a href="categories/travel.html">旅行相关</a>
       <a href="categories/products.html">物品 / 硬件</a>
+      <a href="categories/food.html">食品 / 消费品</a>
       <a href="categories/websites.html">网站 / 独立站</a>
       <a href="categories/solo.html">一人公司 / 数字产品</a>
       <a href="categories/growth.html">内容分发 / 营销增长</a>
       <a href="categories/tools.html">工具 / SaaS</a>
+    </nav>
+    
+    
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-main">
+      <div class="hero-badge">ChainPulse Research Library</div>
+
+      <div class="brand-lockup">
+        <div class="logo-frame">
+          
+    <svg width="74" height="74" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="cp-logo-grad" x1="14" y1="96" x2="102" y2="22" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#8B1FE8"/>
+          <stop offset="0.38" stop-color="#5A4DFF"/>
+          <stop offset="0.7" stop-color="#10C8C6"/>
+          <stop offset="1" stop-color="#64D96B"/>
+        </linearGradient>
+        <filter id="cp-logo-glow" x="-20" y="-20" width="160" height="160" filterUnits="userSpaceOnUse">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <path d="M30 63C22 63 16 57 16 49C16 41 22 35 30 35H41" stroke="url(#cp-logo-grad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#cp-logo-glow)"/>
+      <path d="M84 41C92 41 98 47 98 55C98 63 92 69 84 69H73" stroke="url(#cp-logo-grad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#cp-logo-glow)"/>
+      <path d="M43 61L71 33" stroke="url(#cp-logo-grad)" stroke-width="8" stroke-linecap="round" filter="url(#cp-logo-glow)"/>
+
+      <path d="M68 23L42 49C37 54 37 62 42 67C47 72 55 72 60 67L86 41C95 32 95 19 86 10C77 1 64 1 55 10L48 17" stroke="url(#cp-logo-grad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M24 48L36 36C42 30 52 30 58 36C64 42 64 52 58 58L46 70C38 78 26 78 18 70C10 62 10 50 18 42L24 36" stroke="url(#cp-logo-grad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".96"/>
+    </svg>
+    
+        </div>
+
+        <div class="brand-copy">
+          <h1><span class="brand-word">ChainPulse</span>案例口播知识库</h1>
+          <p class="hero-desc">一个围绕项目案例、众筹案例、独立站、一人公司、数字产品与营销增长的知识库。每篇内容都先拆商业逻辑，再给出适合短视频出镜的中文口播稿。</p>
+        </div>
+      </div>
+
+      <div class="hero-chip-row">
+        <span class="hero-chip">Research-first</span>
+        <span class="hero-chip">Archive-native</span>
+        <span class="hero-chip">Script-ready</span>
+        <span class="hero-chip">Brand intelligence</span>
+      </div>
     </div>
+
+    <div class="hero-side">
+      <div class="signal-card">
+        <span>Pulse Lens</span>
+        <strong>Research before narrative</strong>
+        <p>先拆商业结构、场景与信号，再决定它值不值得被讲成一篇口播。</p>
+      </div>
+
+      <div class="signal-card">
+        <span>Signal Flow</span>
+        <strong>Archive plus categories</strong>
+        <p>时间归档和分类入口并行，让内容不断沉淀成品牌自己的知识资产。</p>
+      </div>
+
+      <div class="signal-card">
+        <span>Output Mode</span>
+        <strong>Insight to script</strong>
+        <p>每篇都保留分析、推荐角度、避坑提醒和完整口播稿，方便直接转内容。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">更新频率</div>
+      <div class="stat-value">每周一 / 三 / 五 / 日</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">当前稿件</div>
+      <div class="stat-value">1 篇</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">分类数量</div>
+      <div class="stat-value">7 类</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">最近更新时间</div>
+      <div class="stat-value">2026-05-01 12:51</div>
+    </div>
+  </div>
+</section>
+
+<section class="main-grid">
+  <aside class="side-panel">
+    <h2>这个知识库里有什么</h2>
+    <ul>
+      <li>每篇内容先判断“适不适合做口播”，再看完整口播稿。</li>
+      <li>首页负责介绍项目本身、内容范围、分类结构和最近更新。</li>
+      <li>详情页保留案例分析、核心数据、逻辑拆解、推荐角度、注意事项和口播正文。</li>
+      <li>归档页按时间查看全部内容，分类页按主题持续积累。</li>
+    </ul>
+    <div class="side-note">
+      品牌入口：ChainPulse<br>
+      结构：Home / Archive / Categories / Posts
+    </div>
+  </aside>
+
+  <main class="stack">
+    <section class="panel">
+      <h2 class="panel-title">类目入口</h2>
+      <div class="category-grid">
+        
+    <a class="category-card" href="categories/travel.html">
+      <div class="category-topline"></div>
+      <div class="card-noise"></div>
+      <div class="card-label">Category</div>
+      <h3>旅行相关</h3>
+      <p>旅行效率、出行收纳、差旅场景、户外携带等相关项目。</p>
+      <div class="category-count">当前 1 篇</div>
+    </a>
     
+    <a class="category-card" href="categories/products.html">
+      <div class="category-topline"></div>
+      <div class="card-noise"></div>
+      <div class="card-label">Category</div>
+      <h3>物品 / 硬件</h3>
+      <p>实物产品、消费硬件、功能型单品、产品创新与组合方案。</p>
+      <div class="category-count">当前 1 篇</div>
+    </a>
     
-    <section class="hero">
-      <div class="eyebrow">KNOWLEDGE BASE</div>
-      <h1>ChainPulse｜案例口播知识库</h1>
-      <p>这是一个围绕项目案例、众筹案例、独立站、一人公司、数字产品与营销增长的知识库。每篇内容都先拆商业逻辑，再给出适合短视频出镜的中文口播稿。</p>
-      <div class="stats">
-        <div class="stat"><div class="label">更新频率</div><div class="value">每周一 / 三 / 五 / 日</div></div>
-        <div class="stat"><div class="label">当前稿件</div><div class="value">1 篇</div></div>
-        <div class="stat"><div class="label">分类数量</div><div class="value">7 类</div></div>
-        <div class="stat"><div class="label">最近更新时间</div><div class="value">2026-05-01 12:51</div></div>
+    <a class="category-card" href="categories/food.html">
+      <div class="category-topline"></div>
+      <div class="card-noise"></div>
+      <div class="card-label">Category</div>
+      <h3>食品 / 消费品</h3>
+      <p>食品、饮料、日用消费品与高频复购类项目。</p>
+      <div class="category-count">当前 0 篇</div>
+    </a>
+    
+    <a class="category-card" href="categories/websites.html">
+      <div class="category-topline"></div>
+      <div class="card-noise"></div>
+      <div class="card-label">Category</div>
+      <h3>网站 / 独立站</h3>
+      <p>独立站、DTC 网站、网站转化逻辑与品牌官网案例。</p>
+      <div class="category-count">当前 0 篇</div>
+    </a>
+    
+    <a class="category-card" href="categories/solo.html">
+      <div class="category-topline"></div>
+      <div class="card-noise"></div>
+      <div class="card-label">Category</div>
+      <h3>一人公司 / 数字产品</h3>
+      <p>一人公司、订阅产品、社群、数字资产与轻创业模型。</p>
+      <div class="category-count">当前 0 篇</div>
+    </a>
+    
+    <a class="category-card" href="categories/growth.html">
+      <div class="category-topline"></div>
+      <div class="card-noise"></div>
+      <div class="card-label">Category</div>
+      <h3>内容分发 / 营销增长</h3>
+      <p>内容矩阵、冷启动、社媒增长、分发路径与获客机制。</p>
+      <div class="category-count">当前 0 篇</div>
+    </a>
+    
+    <a class="category-card" href="categories/tools.html">
+      <div class="category-topline"></div>
+      <div class="card-noise"></div>
+      <div class="card-label">Category</div>
+      <h3>工具 / SaaS</h3>
+      <p>营销工具、SaaS、AI 工具、自动化与团队协作产品。</p>
+      <div class="category-count">当前 0 篇</div>
+    </a>
+    
       </div>
     </section>
 
-    <section class="grid">
-      <aside class="panel">
-        <h2>这个知识库里有什么</h2>
-        <ul>
-          <li>每篇内容先判断“适不适合做口播”，再看完整口播稿。</li>
-          <li>首页负责介绍项目本身、内容范围、分类结构和最近更新。</li>
-          <li>详情页保留案例分析、核心数据、逻辑拆解、推荐角度、注意事项和口播正文。</li>
-          <li>归档页按时间查看全部内容，分类页按主题持续积累。</li>
-        </ul>
-        <h2 style="margin-top:20px">覆盖方向</h2>
-        <p>旅行相关、物品/硬件、食品/消费品、网站/独立站、一人公司/数字产品、内容分发/营销增长、工具/SaaS。</p>
-        <div class="footer-note">本地入口：weekly-script-hub.html<br>部署入口：netlify-site/index.html</div>
-      </aside>
-
-      <main class="stack">
-        <section class="panel">
-          <div class="section-title">类目入口</div>
-          <div class="category-grid"><a class="category-card" href="categories/travel.html"><h3>旅行相关</h3><p>旅行效率、出行收纳、差旅场景、户外携带等相关项目。</p><p class="footer-note">当前 1 篇</p></a><a class="category-card" href="categories/products.html"><h3>物品 / 硬件</h3><p>实物产品、消费硬件、功能型单品、产品创新与组合方案。</p><p class="footer-note">当前 1 篇</p></a><a class="category-card" href="categories/food.html"><h3>食品 / 消费品</h3><p>食品、饮料、日用消费品与高频复购类项目。</p><p class="footer-note">当前 0 篇</p></a><a class="category-card" href="categories/websites.html"><h3>网站 / 独立站</h3><p>独立站、DTC 网站、网站转化逻辑与品牌官网案例。</p><p class="footer-note">当前 0 篇</p></a><a class="category-card" href="categories/solo.html"><h3>一人公司 / 数字产品</h3><p>一人公司、订阅产品、社群、数字资产与轻创业模型。</p><p class="footer-note">当前 0 篇</p></a><a class="category-card" href="categories/growth.html"><h3>内容分发 / 营销增长</h3><p>内容矩阵、冷启动、社媒增长、分发路径与获客机制。</p><p class="footer-note">当前 0 篇</p></a><a class="category-card" href="categories/tools.html"><h3>工具 / SaaS</h3><p>营销工具、SaaS、AI 工具、自动化与团队协作产品。</p><p class="footer-note">当前 0 篇</p></a></div>
-        </section>
-
-        <section class="panel">
-          <div class="section-title">最新稿件</div>
-          <div class="post-grid">
+    <section class="panel">
+      <h2 class="panel-title">最新稿件</h2>
+      <div class="post-grid">
+        
     <article class="post-card">
-      <div class="meta">
-        <span class="tag">2026-05-01</span>
-        <span class="tag">周五</span>
-        <span class="tag">约4分钟</span>
-        <span class="tag">已完成</span>
+      <div class="post-glow"></div>
+      <div class="meta-row">
+        <span class="pill">2026-05-01</span>
+        <span class="pill">周五</span>
+        <span class="pill">约4分钟</span>
       </div>
       <h3><a href="posts/2026-05-01-4d-air-pack.html">一个旅行烘干机，为什么能把 Kickstarter 众筹目标完成率做到 7000%+？</a></h3>
       <p class="summary">这不是一个新品突然爆了，而是一个老玩家把老客、老品类、老场景，重新拼成了一个更好卖的新故事。</p>
-      <div class="tags"><a class="tag" href="categories/travel.html">旅行相关</a><a class="tag" href="categories/products.html">物品 / 硬件</a><span class="tag">Kickstarter</span><span class="tag">旅行品类</span><span class="tag">众筹拆解</span><span class="tag">商业逻辑</span></div>
+      <div class="chips"><span class="chip">旅行相关</span><span class="chip">物品 / 硬件</span><span class="chip">Kickstarter</span><span class="chip">旅行品类</span><span class="chip">众筹拆解</span><span class="chip">商业逻辑</span></div>
     </article>
-    </div>
-        </section>
-
-        <section class="panel">
-          <div class="section-title">时间归档</div>
-          <p>所有内容会持续保留，不会覆盖。你可以按日期查看每周一、三、五、日更新的全部案例。</p>
-          <p><a href="archive.html" style="color:var(--green);font-weight:700;">进入总目录页</a></p>
-        </section>
-      </main>
-    </section>
     
+      </div>
+    </section>
+  </main>
+</section>
+
   </div>
 </body>
 </html>

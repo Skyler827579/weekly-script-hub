@@ -3,95 +3,168 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>食品 / 消费品｜出海有数</title>
+  <title>ChainPulse｜食品 / 消费品</title>
   <style>
     :root{
-      --bg:#f6f0e6;--card:#fffdf8;--text:#1f1f1d;--muted:#6f685f;--line:rgba(31,31,29,.12);
-      --accent:#b85c38;--accent-soft:rgba(184,92,56,.1);--green:#2f5d50;--blue:#3560c9;
-      --shadow:0 18px 50px rgba(34,24,13,.08);--radius:24px;
+      --bg:#f7f9fc;
+      --paper:rgba(255,255,255,.80);
+      --paper2:rgba(255,255,255,.92);
+      --line:rgba(16,24,40,.10);
+      --text:#101828;
+      --muted:#5d6677;
+      --purple:#b620e0;
+      --blue:#2f80ff;
+      --cyan:#14d5cc;
+      --green:#62da6e;
+      --grad:linear-gradient(135deg,#b620e0 0%,#2f80ff 35%,#14d5cc 68%,#62da6e 100%);
+      --shadow:0 18px 60px rgba(18,27,54,.08);
     }
     *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
     body{
-      margin:0;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--text);
-      background:radial-gradient(circle at top left, rgba(184,92,56,.12), transparent 28%),
-      radial-gradient(circle at top right, rgba(47,93,80,.12), transparent 24%), var(--bg);
+      font-family:"Avenir Next","SF Pro Display","PingFang SC","Helvetica Neue",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 14% 18%, rgba(182,32,224,.09), transparent 22%),
+        radial-gradient(circle at 84% 16%, rgba(47,128,255,.09), transparent 22%),
+        radial-gradient(circle at 72% 76%, rgba(20,213,204,.12), transparent 20%),
+        linear-gradient(180deg,#fbfdff 0%,#f5f7fb 100%);
+      min-height:100vh;
     }
-    a{color:inherit;text-decoration:none}
-    .wrap{width:min(1220px,calc(100% - 32px));margin:24px auto 48px}
-    .hero,.panel,.post-card,.detail-card,.logic-card,.data-box{
-      background:rgba(255,253,248,.92);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)
+    .wrap{width:min(1240px,calc(100% - 36px));margin:24px auto 48px}
+    .top-nav{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+    .top-nav a{
+      padding:12px 16px;border-radius:999px;background:rgba(255,255,255,.82);
+      border:1px solid var(--line);font-size:14px;box-shadow:0 8px 24px rgba(15,23,42,.05)
     }
-    .hero{padding:28px;margin-bottom:18px}
-    .eyebrow{display:inline-flex;padding:7px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.08em;margin-bottom:14px}
-    h1{margin:0 0 10px;font-size:clamp(28px,4vw,50px);line-height:1.08}
-    .hero p{margin:0;color:var(--muted);line-height:1.8;max-width:860px;font-size:15px}
-    .nav{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
-    .nav a{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid var(--line);font-size:14px}
-    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:18px}
-    .stat{background:rgba(255,255,255,.66);border:1px solid var(--line);border-radius:18px;padding:16px}
-    .stat .label{font-size:13px;color:var(--muted);margin-bottom:10px}
-    .stat .value{font-size:26px;font-weight:800}
-    .grid{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px}
-    .panel{padding:22px}
-    .panel h2,.section-title{margin:0 0 12px;font-size:22px}
-    .panel p,.panel li{color:var(--muted);line-height:1.75;font-size:14px}
-    .panel ul{margin:0;padding-left:18px}
-    .category-grid,.post-grid,.stack{display:grid;gap:16px}
-    .category-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-    .post-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-    .category-card{display:block;padding:18px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.72)}
-    .category-card h3{margin:0 0 8px;font-size:20px}
-    .category-card p{margin:0;color:var(--muted);line-height:1.75}
-    .post-card,.detail-card{padding:22px}
-    .post-card h3{margin:12px 0 10px;font-size:28px;line-height:1.25}
-    .post-card .summary{margin:0;color:var(--muted);line-height:1.8}
-    .meta,.tags{display:flex;flex-wrap:wrap;gap:8px}
-    .tag{display:inline-flex;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.72);font-size:12px}
-    .lead{color:var(--muted);line-height:1.85}
-    .section{border-top:1px solid var(--line);padding-top:16px;margin-top:16px}
-    .section h2{margin:0 0 12px;font-size:20px}
-    .section p{line-height:1.95;margin:0 0 14px}
+    .hero,.panel,.card,.side,.logic,.data{
+      background:var(--paper);backdrop-filter:blur(18px);
+      border:1px solid var(--line);box-shadow:var(--shadow)
+    }
+    .hero{padding:34px;border-radius:32px;overflow:hidden;position:relative;margin-bottom:20px}
+    .hero:after{
+      content:"";position:absolute;right:-120px;top:-120px;width:320px;height:320px;
+      background:var(--grad);opacity:.12;filter:blur(36px);border-radius:50%
+    }
+    .brand{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    .mark{
+      width:74px;height:74px;border-radius:24px;background:rgba(255,255,255,.88);
+      display:grid;place-items:center;border:1px solid rgba(255,255,255,.75);box-shadow:0 16px 40px rgba(47,128,255,.10)
+    }
+    .kicker{
+      display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.80);
+      border:1px solid var(--line);color:var(--muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px
+    }
+    h1{margin:0;font-size:clamp(34px,6vw,70px);line-height:.98;letter-spacing:-.04em}
+    .accent{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero p{margin:16px 0 0;max-width:860px;color:var(--muted);font-size:16px;line-height:1.9}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:24px}
+    .stat{padding:18px;border-radius:22px;background:rgba(255,255,255,.86);border:1px solid var(--line)}
+    .stat .label{font-size:12px;color:var(--muted);margin-bottom:10px;letter-spacing:.06em;text-transform:uppercase}
+    .stat .value{font-size:24px;font-weight:700;letter-spacing:-.03em}
+    .grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:20px}
+    .stack,.category-grid,.post-grid{display:grid;gap:16px}
+    .panel,.side,.card{padding:24px;border-radius:26px}
+    .panel h2,.title2{margin:0 0 14px;font-size:34px;letter-spacing:-.04em}
+    .panel p,.panel li,.side p,.side li{color:var(--muted);line-height:1.85;font-size:14px}
+    .panel ul,.side ul{margin:0;padding-left:18px}
+    .category-grid{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+    .cat{
+      position:relative;padding:20px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.76));
+      border:1px solid var(--line);box-shadow:0 14px 36px rgba(16,24,40,.05);min-height:188px
+    }
+    .cat:before{content:"";position:absolute;left:0;top:0;width:100%;height:4px;background:var(--grad)}
+    .cat h3{margin:0 0 10px;font-size:20px;letter-spacing:-.03em}
+    .cat p{margin:0;color:var(--muted);line-height:1.8}
+    .cat .count{position:absolute;bottom:18px;left:20px;font-size:14px;font-weight:600}
+    .post-grid{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+    .card{position:relative;overflow:hidden}
+    .card:after{
+      content:"";position:absolute;inset:0;border-radius:26px;padding:1px;
+      background:linear-gradient(135deg,rgba(182,32,224,.22),rgba(47,128,255,.12),rgba(20,213,204,.22));
+      -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none
+    }
+    .meta,.chips{display:flex;flex-wrap:wrap;gap:8px}
+    .pill,.chip{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.76);font-size:12px}
+    .card h3{margin:14px 0 10px;font-size:28px;line-height:1.18;letter-spacing:-.04em}
+    .summary{margin:0;color:var(--muted);line-height:1.85;font-size:15px}
+    .detail{display:grid;grid-template-columns:320px minmax(0,1fr);gap:20px}
+    .side{position:sticky;top:20px;height:fit-content}
+    .side h3{margin:0 0 12px;font-size:18px;letter-spacing:-.02em}
+    .article{padding:28px;border-radius:28px}
+    .article h1{font-size:clamp(28px,5vw,56px);line-height:1.02;margin:16px 0 12px}
+    .lead{color:var(--muted);line-height:1.9;font-size:16px;margin:0 0 16px}
+    .section{border-top:1px solid var(--line);margin-top:18px;padding-top:18px}
+    .section h2{margin:0 0 12px;font-size:22px;letter-spacing:-.03em}
+    .section p{margin:0 0 14px;line-height:1.95}
     .section ul{margin:0;padding-left:18px}
     .section li{line-height:1.9;margin-bottom:6px}
     .logic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .logic-card,.data-box{padding:14px}
-    .logic-card .k,.data-box .k{font-size:12px;color:var(--muted);margin-bottom:8px}
-    .logic-card .v{font-size:15px;line-height:1.75}
+    .logic,.data{padding:16px;border-radius:22px}
+    .logic .k,.data .k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+    .logic .v{font-size:15px;line-height:1.8}
     .data-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
-    .data-box .v{font-size:22px;font-weight:800}
-    .quote-box{padding:16px 18px;border-radius:18px;background:rgba(53,96,201,.08);border:1px solid rgba(53,96,201,.14);line-height:1.9}
-    .warn-box{padding:16px 18px;border-radius:18px;background:rgba(184,92,56,.08);border:1px solid rgba(184,92,56,.14);line-height:1.9}
-    .footer-note{margin-top:20px;color:var(--muted);font-size:13px}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}.post-card h3{font-size:24px}}
+    .data .v{font-size:24px;font-weight:700;letter-spacing:-.03em}
+    .quote,.warn{border-radius:22px;padding:18px;line-height:1.9}
+    .quote{background:linear-gradient(180deg,rgba(47,128,255,.08),rgba(20,213,204,.08));border:1px solid rgba(47,128,255,.16)}
+    .warn{background:linear-gradient(180deg,rgba(182,32,224,.08),rgba(255,166,0,.08));border:1px solid rgba(182,32,224,.14)}
+    .note{margin-top:18px;color:var(--muted);font-size:13px;line-height:1.7}
+    @media (max-width:980px){
+      .grid,.detail{grid-template-columns:1fr}
+      .side{position:static}
+      .hero{padding:24px}
+      h1{font-size:clamp(32px,11vw,56px)}
+    }
     </style>
 </head>
 <body>
   <div class="wrap">
     
-    <div class="nav">
+    <nav class="top-nav">
       <a href="../index.html">首页</a>
       <a href="../archive.html">时间归档</a>
       <a href="../categories/travel.html">旅行相关</a>
       <a href="../categories/products.html">物品 / 硬件</a>
+      <a href="../categories/food.html">食品 / 消费品</a>
       <a href="../categories/websites.html">网站 / 独立站</a>
       <a href="../categories/solo.html">一人公司 / 数字产品</a>
       <a href="../categories/growth.html">内容分发 / 营销增长</a>
       <a href="../categories/tools.html">工具 / SaaS</a>
-    </div>
+    </nav>
     
     
     <section class="hero">
-      <div class="eyebrow">CATEGORY</div>
-      <h1>食品 / 消费品</h1>
+      <div class="brand">
+        <div class="mark">
+    <svg width="48" height="48" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="cpga" x1="14" y1="75" x2="78" y2="18" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#B620E0"/>
+          <stop offset="0.38" stop-color="#2F80FF"/>
+          <stop offset="0.68" stop-color="#0FD0C7"/>
+          <stop offset="1" stop-color="#5AD66F"/>
+        </linearGradient>
+      </defs>
+      <path d="M31 58C24 58 18 52 18 45C18 38 24 32 31 32H43" stroke="url(#cpga)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M65 38C72 38 78 44 78 51C78 58 72 64 65 64H53" stroke="url(#cpga)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M40 56L56 40" stroke="url(#cpga)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M52 26L35 43C31 47 31 54 35 58C39 62 46 62 50 58L67 41C73 35 73 26 67 20C61 14 52 14 46 20L40 26" stroke="url(#cpga)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+    </svg>
+    </div>
+        <div>
+          <div class="kicker">Category</div>
+          <h1>食品 / 消费品</h1>
+        </div>
+      </div>
       <p>食品、饮料、日用消费品与高频复购类项目。</p>
       <div class="stats">
         <div class="stat"><div class="label">当前收录</div><div class="value">0 篇</div></div>
-        <div class="stat"><div class="label">最近更新时间</div><div class="value">2026-05-01 12:51</div></div>
       </div>
     </section>
     <section class="panel">
-      <div class="section-title">该类目下的内容</div>
-      <div class="post-grid"><p>暂时还没有内容。</p></div>
+      <div class="title2">该类目下的内容</div>
+      <div class="post-grid"><p>这个类目下还没有内容。</p></div>
     </section>
     
   </div>
