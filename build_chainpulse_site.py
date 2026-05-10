@@ -121,7 +121,7 @@ def render_home(data: dict) -> str:
         f'<main class="stack"><section class="panel"><h2 class="panel-title">类目入口</h2><div class="category-grid">{category_cards}</div></section>'
         f'<section class="panel"><h2 class="panel-title">最新稿件</h2><div class="post-grid">{latest_posts}</div></section></main></section>'
     )
-    return shell(f'ChainPulse｜{data["meta"]["title"]}', body)
+    return shell(data["meta"]["title"], body)
 
 
 def render_archive(data: dict) -> str:
@@ -141,7 +141,7 @@ def render_archive(data: dict) -> str:
         + '</div><div><div class="kicker">Archive</div><h1>时间归档</h1></div></div><p>这里保留所有稿件，不覆盖旧内容。后面每周新增的案例，都会继续沉淀到这个目录里。</p></section>'
         f'<div class="stack">{sections}</div>'
     )
-    return shell("ChainPulse｜时间归档", body)
+    return shell(f'{data["meta"]["brand"]}｜时间归档', body)
 
 
 def render_category(slug: str, info: dict, posts: list[dict], categories: dict) -> str:
@@ -168,6 +168,7 @@ def render_detail(post: dict, data: dict) -> str:
     )
     logic_cards = (
         f'<div class="logic"><div class="k">适不适合做口播</div><div class="v">{e(analysis["suitable"])}</div></div>'
+        f'<div class="logic"><div class="k">为什么值得讲</div><div class="v">{e(analysis.get("worthTelling", post["summary"]))}</div></div>'
         f'<div class="logic"><div class="k">最值得讲的问题</div><div class="v">{e(analysis["coreQuestion"])}</div></div>'
         f'<div class="logic"><div class="k">最一针见血的角度</div><div class="v">{e(analysis["sharpAngle"])}</div></div>'
     )
@@ -204,7 +205,7 @@ def render_detail(post: dict, data: dict) -> str:
         f'<section class="section"><h2>完整口播稿</h2>{script}</section>'
         "</article></div>"
     )
-    return shell(f'ChainPulse｜{post["title"]}', body)
+    return shell(f'{data["meta"]["brand"]}｜{post["title"]}', body)
 
 
 def build() -> None:
