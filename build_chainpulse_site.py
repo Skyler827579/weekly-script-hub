@@ -33,6 +33,7 @@ def nav(prefix: str = "") -> str:
         f'<a href="{prefix}categories/travel.html">旅行相关</a>'
         f'<a href="{prefix}categories/products.html">物品 / 硬件</a>'
         f'<a href="{prefix}categories/food.html">食品 / 消费品</a>'
+        f'<a href="{prefix}categories/smallbiz.html">小生意雷达</a>'
         f'<a href="{prefix}categories/websites.html">网站 / 独立站</a>'
         f'<a href="{prefix}categories/solo.html">一人公司 / 数字产品</a>'
         f'<a href="{prefix}categories/growth.html">内容分发 / 营销增长</a>'
@@ -117,7 +118,7 @@ def render_home(data: dict) -> str:
         f'<div class="stat-card"><div class="stat-label">分类数量</div><div class="stat-value">{len(categories)} 类</div></div>'
         f'<div class="stat-card"><div class="stat-label">最近更新时间</div><div class="stat-value">{e(data["meta"]["generatedAt"])}</div></div>'
         '</div></section>'
-        '<section class="main-grid"><aside class="side"><h3>这个知识库里有什么</h3><ul><li>每篇内容先判断“适不适合做口播”，再看完整口播稿。</li><li>首页负责介绍项目本身、内容范围、分类结构和最近更新。</li><li>详情页保留案例分析、核心数据、逻辑拆解、推荐角度、注意事项和口播正文。</li><li>归档页按时间查看全部内容，分类页按主题持续积累。</li></ul><div class="side-note">品牌入口：ChainPulse<br>结构：Home / Archive / Categories / Posts</div></aside>'
+        '<section class="main-grid"><aside class="side"><h3>这个知识库里有什么</h3><ul><li>每篇内容先判断“适不适合做口播”，再看完整口播稿。</li><li>小生意雷达会收集小红书、闲鱼、淘宝、抖音、独立站里的轻量生意模型。</li><li>详情页保留案例分析、核心数据、逻辑拆解、推荐角度、注意事项和口播正文。</li><li>归档页按时间查看全部内容，分类页按主题持续积累。</li></ul><div class="side-note">品牌入口：ChainPulse<br>结构：Home / Archive / Categories / Posts</div></aside>'
         f'<main class="stack"><section class="panel"><h2 class="panel-title">类目入口</h2><div class="category-grid">{category_cards}</div></section>'
         f'<section class="panel"><h2 class="panel-title">最新稿件</h2><div class="post-grid">{latest_posts}</div></section></main></section>'
     )
@@ -148,6 +149,13 @@ def render_category(slug: str, info: dict, posts: list[dict], categories: dict) 
     cards = "".join(
         archive_card(post, categories, f'../posts/{post["slug"]}.html', link_prefix="../") for post in posts
     )
+    if not cards:
+        cards = (
+            '<article class="card"><div class="kicker">Coming Soon</div>'
+            '<h3>这个栏目正在等待第一篇案例</h3>'
+            '<p class="summary">后续会优先收录平台小生意、轻交付服务、低库存商品、模板化接单和细分人群需求。</p>'
+            "</article>"
+        )
     body = (
         nav("../")
         + '<section class="hero"><div class="brand"><div class="mark">'
