@@ -139,7 +139,7 @@ def render_archive(data: dict) -> str:
         nav()
         + '<section class="hero"><div class="brand"><div class="mark">'
         + LOGO
-        + '</div><div><div class="kicker">Archive</div><h1>时间归档</h1></div></div><p>这里保留所有稿件，不覆盖旧内容。后面每周新增的案例，都会继续沉淀到这个目录里。</p></section>'
+        + '</div><div><div class="kicker">Archive</div><h1>时间归档</h1></div></div><p>这里保留所有稿件，不覆盖旧内容。后面每天新增的案例，都会继续沉淀到这个目录里。</p></section>'
         f'<div class="stack">{sections}</div>'
     )
     return shell(f'{data["meta"]["brand"]}｜时间归档', body)
